@@ -3,6 +3,8 @@ var nameInputEl = document.querySelector("#username");
 var repoContainerEl = document.querySelector("#repos-container");
 var repoSearchTerm = document.querySelector("#repo-search-term");
 
+
+
 var getUserRepos = function(user) {
     //format the github api url
     var apiURL = "https://api.github.com/users/" + user + "/repos";
@@ -27,6 +29,8 @@ var getUserRepos = function(user) {
 };
 
 
+
+
 var formSubmitHandler = function(event) {
     event.preventDefault();
     // get value from input element
@@ -49,6 +53,7 @@ var displayRepos = function(repos, searchTerm) {
         return;
     }
     
+    console.log(repos);
     //clear old content
     repoContainerEl.textContent = "";
     repoSearchTerm.textContent = searchTerm;
@@ -70,12 +75,17 @@ var displayRepos = function(repos, searchTerm) {
         var statusEl = document.createElement("span");
         statusEl.classList = "flex-row align-center";
 
+        console.log(repos[i].open_issues_count);
         // check if current repo has issues or not
         if (repos[i].open_issues_count > 0) {
             statusEl.innerHTML = "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + " issue(s)";
         } else {
             statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
         }
+
+        //append icon
+
+        titleEl.appendChild(statusEl)
 
         //append to container
         repoEl.appendChild(titleEl);
